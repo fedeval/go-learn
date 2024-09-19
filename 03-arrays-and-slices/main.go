@@ -45,6 +45,12 @@ func main() {
 			in size every time the capacity limit is breached (assume is to avoid
 			discarding and recreating the underlying array every time a single element is
 			appended so it is not too costly performance wise to extend the slice)
+
+			Looking at the source code it looks like the doubling rule applies to "small"
+			slices and the growth rate is reduced for bigger ones.
+			(see: https://cs.opensource.google/go/go/+/refs/tags/go1.23.1:src/runtime/slice.go;l=288)
+
+			Also if the new length is more than double the capacity, different rules apply
 	*/
 	test := []int{1, 2, 3}
 	fmt.Println(len(test)) // 3
@@ -58,6 +64,9 @@ func main() {
 	test = append(test, 1, 2, 3, 4, 5, 6, 7)
 	fmt.Println(len(test)) // 14
 	fmt.Println(cap(test)) // 24
+	test = append(test, make([]int, 35)...)
+	fmt.Println(len(test)) // 49
+	fmt.Println(cap(test)) // 52 (???, why not 49?)
 
 	// When we assign a slice to anothe variable, they share the same underlyinga array
 	one := []int{1, 2, 3}
@@ -76,4 +85,31 @@ func main() {
 	four[2] = "d"
 	fmt.Println(three) // ["a","b","c"]
 	fmt.Println(four)  // ["a","b","d"]
+
+	/*
+		https://www.adityathebe.com/anatomy-of-go-slices/
+		Notes on capacity
+
+		While above I stated "- capacity: the size of the underlying array", that is not correct
+
+		The actual definition is:
+		"The Capacity of a slice is equal to the length of the underlying array,
+		minus the index in the array of the first element of the slice."
+
+
+		See sample code below:
+	*/
+	parentSlice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}
+	fmt.Printf("Parent Slice's Address: %p\n\n", parentSlice)
+
+	sliceA := parentSlice[:5]
+	fmt.Printf("sliceA's Address: %p\n", sliceA)        // same as parentSlice
+	fmt.Printf("sliceA's Capacity %d\n\n", cap(sliceA)) // sliceA's Capacity 20
+
+	// Has same underlying array (parentSlice) as sliceA but its first element
+	// points to a different index on it
+	sliceB := parentSlice[12:15]
+	fmt.Printf("sliceB's Address: %p\n", sliceB)      // will be the address of parentSlice's 12th element
+	fmt.Printf("sliceB's Capacity %d\n", cap(sliceB)) // sliceB's Capacity 8
+
 }
