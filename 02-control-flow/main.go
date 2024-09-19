@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"math/rand"
 )
 
@@ -80,4 +79,12 @@ func main() {
 	for i, v := range ints {
 		fmt.Printf("Item with value %d at index %d\n", v, i)
 	}
+
+	// Excercises
+	Exercise1()
+	Exercise2()
+	Exercise3()
+	Exercise4()
+	Exercise5()
+	Exercise6()
 }
