@@ -112,4 +112,8 @@ func main() {
 	fmt.Printf("sliceB's Address: %p\n", sliceB)      // will be the address of parentSlice's 12th element
 	fmt.Printf("sliceB's Capacity %d\n", cap(sliceB)) // sliceB's Capacity 8
 
+	// Excercises
+	Exercise1()
+	Exercise2()
+	Exercise3()
 }
