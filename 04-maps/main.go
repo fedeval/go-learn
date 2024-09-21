@@ -48,4 +48,8 @@ func main() {
 
 	fmt.Println(jack, ok1) // 0, true
 	fmt.Println(john, ok2) // 0, false
+
+	// Exercises
+	Exercise1()
+	Exercise2()
 }
