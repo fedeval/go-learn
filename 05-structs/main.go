@@ -54,4 +54,7 @@ func main() {
 	// will infer the type
 	var p person = m
 	fmt.Printf("%T\n", p)
+
+	// exercises
+	Exercise1()
 }
