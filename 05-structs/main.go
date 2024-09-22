@@ -37,4 +37,21 @@ func main() {
 	// properties of the embedded struct can also be accessed directly
 	fmt.Println(dr.person.name) // mike
 	fmt.Println(dr.name)        // mike
+
+	// structs can be created anonymously as well
+	m := struct {
+		name string
+		age  int
+	}{
+		name: "Test",
+		age:  20,
+	}
+
+	fmt.Printf("%T\n", m)
+
+	// anonymous types are indeterminate and can be assigned to
+	// a variable of a given type if the shape matches, the compiler
+	// will infer the type
+	var p person = m
+	fmt.Printf("%T\n", p)
 }
