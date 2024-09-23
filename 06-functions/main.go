@@ -84,4 +84,8 @@ func main() {
 	// exercises
 	fmt.Println()
 	fmt.Println("---------- Exercises")
+	Exercise1()
+	Exercise2()
+	Exercise3()
+	Exercise4()
 }
