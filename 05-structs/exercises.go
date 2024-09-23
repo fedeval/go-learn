@@ -39,3 +39,30 @@ func Exercise1() {
 		printInfo(kid)
 	}
 }
+
+type engine struct {
+	electric bool
+}
+
+type vehicle struct {
+	engine
+	brand string
+	model string
+	doors int
+	color string
+}
+
+func Exercise2() {
+	v := vehicle{
+		engine: engine{
+			electric: false,
+		},
+		brand: "Ferrari",
+		model: "F40",
+		doors: 2,
+		color: "Rosso Corsa",
+	}
+	fmt.Println(v)
+	fmt.Printf("%T\n", v)
+	fmt.Println(v.electric)
+}

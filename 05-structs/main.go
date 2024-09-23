@@ -57,4 +57,5 @@ func main() {
 
 	// exercises
 	Exercise1()
+	Exercise2()
 }
