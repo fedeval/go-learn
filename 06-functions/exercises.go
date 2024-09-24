@@ -84,3 +84,32 @@ func Exercise4() {
 	info(c)
 	info(s)
 }
+
+func Exercise5() {
+	plusOne := func() func(int) int {
+		return func(x int) int {
+			return x + 1
+		}
+	}()
+
+	five := plusOne(4)
+	fmt.Println(five)
+}
+
+func Exercise6() {
+	var n float64 = 3
+	powerFunc := func(y float64) func() float64 {
+		var x float64 = 0
+		return func() float64 {
+			power := math.Pow(y, x)
+			x++
+			return power
+		}
+	}(n)
+
+	fmt.Println(powerFunc()) // n^0
+	fmt.Println(powerFunc()) // n^1
+	fmt.Println(powerFunc()) // n^2
+	fmt.Println(powerFunc()) // n^3
+	fmt.Println(powerFunc()) // n^4
+}
