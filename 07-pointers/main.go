@@ -23,6 +23,27 @@ func appendToSlicePtr(s *[]int) {
 	*s = append(*s, 1, 2, 3)
 }
 
+type car struct {
+	model string
+}
+
+func (c car) startEngine() {
+	fmt.Printf("Starting %s\n", c.model)
+}
+
+func (c *car) shutDown() {
+	fmt.Printf("Turning off %s\n", c.model)
+}
+
+type vehicle interface {
+	startEngine()
+	shutDown()
+}
+
+func startVehicle(v vehicle) {
+	v.startEngine()
+}
+
 func main() {
 	x := 42
 	fmt.Println(x)  // prints the value of the variable
@@ -80,4 +101,25 @@ func main() {
 	// pass a pointer to the slice
 	appendToSlicePtr(&s)
 	fmt.Println(s) // [2,1,2,1,2,3]
+
+	// When a method is added to a type, it also becomes part of the
+	// available to the pointer to that type and viceversa
+	fiat := car{"Fiat 500"}
+	alfa := &car{"Alfa Romeo Giulietta"}
+
+	fiat.startEngine()
+	fiat.shutDown()
+	alfa.startEngine()
+	alfa.shutDown()
+
+	// however, only the pointer type will have both methods as part
+	// of its method set. This can be shown with interfaces.
+
+	// the below would throw a compiler error since shutDown() is not
+	// part of the cat method set so car does not fit the vehicle interface
+	// startVehicle(fiat)
+
+	// this works because both startEngine and shutDown are part of the method
+	// sets of the *car pointer type so *car fits the vehicle interface
+	startVehicle(alfa)
 }
