@@ -122,4 +122,8 @@ func main() {
 	// this works because both startEngine and shutDown are part of the method
 	// sets of the *car pointer type so *car fits the vehicle interface
 	startVehicle(alfa)
+
+	// exercises
+	Exercise1()
+	Exercise2()
 }
